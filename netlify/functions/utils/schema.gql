@@ -1,9 +1,0 @@
-type Todo {
-  userId: ID!
-  activity: String!
-  completed: Boolean!
-}
-
-type Query {
-  allTodos(userId: ID!): [Todo]!
-}
