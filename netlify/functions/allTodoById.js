@@ -1,6 +1,17 @@
 const sendQuery = require("./utils/sendQuery")
 
-const GET_TODOS = `query($netlify_id: String!) { allTodoById(netlify_id: $netlify_id) { data { _id netlify_id activity completed } } }`
+const GET_TODOS = `
+  query($netlify_id: String!) {
+    allTodoById(netlify_id: $netlify_id) { 
+      data { 
+        _id 
+        netlify_id 
+        activity 
+        completed 
+      } 
+    } 
+  }
+`
 
 exports.handler = async (event) => {
   try {
