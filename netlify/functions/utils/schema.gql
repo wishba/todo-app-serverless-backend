@@ -1,0 +1,9 @@
+type Todo {
+   netlify_id: String!
+   activity: String!
+   completed: Boolean!
+}
+
+type Query {
+   allTodoById(netlify_id: String!): [Todo!]!
+}
