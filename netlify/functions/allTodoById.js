@@ -4,7 +4,7 @@ const GET_TODOS = `query($netlify_id: String!) { allTodoById(netlify_id: $netlif
 
 exports.handler = async (event) => {
   try {
-    const netlify_id = event.queryStringParameters.netlify_id
+    const { netlify_id } = JSON.parse(event.body)
     const variables = { netlify_id }
     const response = await sendQuery(GET_TODOS, variables)
     const data = response.allTodoById.data
