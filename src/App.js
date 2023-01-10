@@ -46,23 +46,25 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {
-          thereIsUser ? (
-            <button onClick={() => netlifyIdentity.logout()}>Logout</button>
-          ) : (
-            <div>
-              <div>
-                <button onClick={() => netlifyIdentity.open()}>Login - Register</button>
-              </div>
-              <img src={logo} className="App-logo" alt="logo" />
-              <p>Login to see your todo</p>
-            </div>
-          )
-        }
+    <>
+      <header className="header">
+        <h1 className='header__title'>Todo App</h1>
+        <div className='header__button'>
+          {
+            thereIsUser ? (
+              <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+            ) : (
+              <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
+            )
+          }
+        </div>
       </header>
-    </div>
+
+      <section className='section'>
+        <img src={logo} className="section__logo" alt="logo" />
+        <p>Login to see your todo</p>
+      </section>
+    </>
   );
 }
 
