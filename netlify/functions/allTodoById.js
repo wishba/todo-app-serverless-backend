@@ -13,12 +13,13 @@ const GET_TODOS = `
   }
 `
 
-exports.handler = async (event) => {
+exports.handler = async event => {
+  const { netlify_id } = JSON.parse(event.body)
+  const variables = { netlify_id }
+  const response = await sendQuery(GET_TODOS, variables)
+  const data = response.allTodoById.data
+
   try {
-    const { netlify_id } = JSON.parse(event.body)
-    const variables = { netlify_id }
-    const response = await sendQuery(GET_TODOS, variables)
-    const data = response.allTodoById.data
     return {
       statusCode: 200,
       body: JSON.stringify(data)
