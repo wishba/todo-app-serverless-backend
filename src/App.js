@@ -35,12 +35,15 @@ function App() {
         <div className='header__button'>
           <button onClick={() => {
             netlifyIdentity.open()
-            netlifyIdentity.on('login', (user) => {
-              console.log(`${user.id} just logged in`)
+            netlifyIdentity.on('login', user => {
               setNetlifyId(user.id)
+              netlifyIdentity.close()
             })
           }}>Login / Register</button>
-          <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+          <button onClick={() => {
+            netlifyIdentity.logout()
+            netlifyIdentity.on('logout', () => setNetlifyId(''))
+          }}>Logout</button>
         </div>
       </header>
 
