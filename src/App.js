@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 import netlifyIdentity from 'netlify-identity-widget'
+import Form from './components/Form';
 
 function App() {
   const [netlifyId, setNetlifyId] = useState('')
@@ -49,10 +50,12 @@ function App() {
           <p>Login to see your todo</p>
         </div>
 
+        <Form />
+
         <ul>
           {allTodo.map((todo) => (
             <li key={todo._id}>
-              <p>{todo.activity} - {todo.completed ? ('completed') : ('uncompleted')}</p>
+              <p>{todo.completed ? ('completed') : ('uncompleted')} - {todo.activity}</p>
             </li>
           ))}
         </ul>
