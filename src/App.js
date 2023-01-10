@@ -5,58 +5,41 @@ import { useEffect, useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const [thereIsUser, setThereIsUser] = useState()
-
-  const allTodoById = async () => {
-    try {
-      const response = await fetch(`/.netlify/functions/allTodoById`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          netlify_id: netlifyIdentity.currentUser().id
-        })
-      })
-
-      const data = await response.json()
-
-      console.log(data);
-      // console.log(netlifyIdentity.currentUser().id);
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const [netlifyId, setNetlifyId] = useState('')
 
   useEffect(() => {
-    netlifyIdentity.init()
-
     if (netlifyIdentity.currentUser() !== null) {
-      setThereIsUser(true)
+      setNetlifyId(netlifyIdentity.currentUser().id)
     }
+    console.log(netlifyId);
 
-    netlifyIdentity.on('login', () => {
-      netlifyIdentity.close()
-      setThereIsUser(true)
-    })
-
-    netlifyIdentity.on('logout', () => {
-      setThereIsUser(false)
-    })
-
+    const allTodoById = () => {
+      fetch(`/.netlify/functions/allTodoById`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          netlify_id: netlifyId
+        })
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
+    }
     allTodoById()
-  }, [])
+  }, [netlifyId])
 
   return (
     <>
       <header className="header">
         <h1 className='header__title'>Todo App</h1>
         <div className='header__button'>
-          {
-            thereIsUser ? (
-              <button onClick={() => netlifyIdentity.logout()}>Logout</button>
-            ) : (
-              <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
-            )
-          }
+          <button onClick={() => {
+            netlifyIdentity.open()
+            netlifyIdentity.on('login', (user) => {
+              console.log(`${user.id} just logged in`)
+              setNetlifyId(user.id)
+            })
+          }}>Login / Register</button>
+          <button onClick={() => netlifyIdentity.logout()}>Logout</button>
         </div>
       </header>
 
