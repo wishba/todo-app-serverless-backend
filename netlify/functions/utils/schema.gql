@@ -1,7 +1,7 @@
 type Todo {
-   netlify_id: String!
-   activity: String!
-   completed: Boolean!
+   netlify_id: String
+   activity: String
+   completed: Boolean
 }
 
 type Query {
