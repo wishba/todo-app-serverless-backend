@@ -6,12 +6,12 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
   const [netlifyId, setNetlifyId] = useState('')
+  const [allTodo, setAllTodo] = useState([])
 
   useEffect(() => {
     if (netlifyIdentity.currentUser() !== null) {
       setNetlifyId(netlifyIdentity.currentUser().id)
     }
-    console.log(netlifyId);
 
     const allTodoById = () => {
       fetch(`/.netlify/functions/allTodoById`, {
@@ -21,7 +21,7 @@ function App() {
         })
       })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setAllTodo(data))
         .catch(error => console.error(error))
     }
     allTodoById()
@@ -43,9 +43,19 @@ function App() {
         </div>
       </header>
 
-      <section className='section'>
-        <img src={logo} className="section__logo" alt="logo" />
-        <p>Login to see your todo</p>
+      <section>
+        <div className='section__not-login'>
+          <img src={logo} className="section__logo" alt="logo" />
+          <p>Login to see your todo</p>
+        </div>
+
+        <ul>
+          {allTodo.map((todo) => (
+            <li key={todo._id}>
+              <p>{todo.activity} - {todo.completed ? ('completed') : ('uncompleted')}</p>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );
