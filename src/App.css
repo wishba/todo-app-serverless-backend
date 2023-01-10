@@ -56,3 +56,14 @@ p {
     animation: section__logo--spin infinite 20s linear;
   }
 }
+
+.list__flex {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 1rem;
+}
+
+.list__button {
+  margin-left: auto;
+  margin-bottom: 1rem;
+}

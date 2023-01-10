@@ -55,7 +55,11 @@ function App() {
         <ul>
           {allTodo.map((todo) => (
             <li key={todo._id}>
-              <p>{todo.completed ? ('completed') : ('uncompleted')} - {todo.activity}</p>
+              <div className='list__flex'>
+                <p>{todo.completed ? ('completed') : ('uncompleted')} - {todo.activity}</p>
+                <button className='list__button'>Edit</button>
+              </div>
+              <Form />
             </li>
           ))}
         </ul>
