@@ -60,7 +60,10 @@ function App() {
             <li key={todo._id}>
               <div className='list__flex'>
                 <p>{todo.completed ? ('completed') : ('uncompleted')} - {todo.activity}</p>
-                <button className='list__button'>Edit</button>
+                <div className='list__button'>
+                  <button >Edit</button>
+                  <button >Cancel</button>
+                </div>
               </div>
               <Form />
             </li>
