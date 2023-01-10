@@ -7,11 +7,29 @@ import netlifyIdentity from 'netlify-identity-widget'
 function App() {
   const [thereIsUser, setThereIsUser] = useState()
 
+  const allTodoById = async () => {
+    try {
+      const response = await fetch(`/.netlify/functions/allTodoById`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          netlify_id: netlifyIdentity.currentUser().id
+        })
+      })
+
+      const data = await response.json()
+
+      console.log(data);
+      // console.log(netlifyIdentity.currentUser().id);
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     netlifyIdentity.init()
 
     if (netlifyIdentity.currentUser() !== null) {
-      console.log(netlifyIdentity.currentUser());
       setThereIsUser(true)
     }
 
@@ -23,6 +41,8 @@ function App() {
     netlifyIdentity.on('logout', () => {
       setThereIsUser(false)
     })
+
+    allTodoById()
   }, [])
 
   return (
