@@ -5,5 +5,5 @@ type Todo {
 }
 
 type Query {
-   allTodoById(netlify_id: String!): [Todo!]!
+   allTodoById(netlify_id: String): [Todo]
 }
