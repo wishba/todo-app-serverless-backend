@@ -7,35 +7,30 @@ function App() {
 
   netlifyIdentity.on('login', user => {
     allTodoById(user.id)
+    netlifyIdentity.close()
   })
   netlifyIdentity.on('logout', () => {
     allTodoById('')
   })
 
-  const allTodoById = async (userId) => {
+  const allTodoById = async (netlifyId) => {
     try {
       const response = await fetch('/.netlify/functions/allTodoById', {
         method: 'PUT',
         body: JSON.stringify({
-          netlify_id: userId
-          // netlify_id: netlifyIdentity.currentUser().id
-          // netlify_id: netlifyId
+          netlify_id: netlifyId
         })
       })
       const data = await response.json()
       setAllTodo(data)
-      // console.log(data);
     } catch (error) {
       console.error(error)
     }
   }
 
-  // console.log(netlifyIdentity.currentUser());
   useEffect(() => {
     if (netlifyIdentity.currentUser() !== null) {
-      // console.log('there is user');
       allTodoById(netlifyIdentity.currentUser().id)
-      // allTodoById('14a3b21b-1df9-4070-b35c-a03dfa183458')
     }
   }, [])
 
