@@ -57,13 +57,25 @@ p {
   }
 }
 
+.list {
+  list-style: none;
+}
+
 .list__flex {
   display: flex;
-  align-items: flex-end;
   margin-right: 1rem;
 }
 
+.list__check {
+  margin-bottom: auto;
+  transform: translateY(.25rem);
+}
+
+.list__activity {
+  margin: 0;
+}
+
 .list__button {
+  margin-top: auto;
   margin-left: auto;
-  margin-bottom: 1rem;
 }
