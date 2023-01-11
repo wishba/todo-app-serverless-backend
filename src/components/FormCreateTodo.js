@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import netlifyIdentity from 'netlify-identity-widget'
 
 function FormCreateTodo() {
+  const [activity, setActivity] = useState('')
   const handleCreateTodo = async event => {
     event.preventDefault()
-
     try {
       await fetch('/.netlify/functions/createTodo', {
         method: 'POST',
         body: JSON.stringify({
-          netlify_id: "14a3b21b-1df9-4070-b35c-a03dfa183458",
-          activity: "test 12:17"
+          netlify_id: netlifyIdentity.currentUser().id,
+          activity: activity
         })
       })
     } catch (error) {
@@ -20,8 +21,12 @@ function FormCreateTodo() {
   return (
     <form onSubmit={handleCreateTodo}>
       <label htmlFor="">Activity:</label>
-      <input type="text" name="" id="" />
-
+      <input
+        type="text"
+        name=""
+        id=""
+        onChange={event => setActivity(event.target.value)}
+      />
       <input type="submit" value="Create Todo" />
     </form>
   )
