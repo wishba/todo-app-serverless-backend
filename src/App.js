@@ -9,24 +9,66 @@ function App() {
   const [netlifyId, setNetlifyId] = useState('')
   const [allTodo, setAllTodo] = useState([])
 
-  useEffect(() => {
-    if (netlifyIdentity.currentUser() !== null) {
-      setNetlifyId(netlifyIdentity.currentUser().id)
-    }
-
-    const allTodoById = () => {
-      fetch(`/.netlify/functions/allTodoById`, {
+  const allTodoById = async () => {
+    try {
+      const response = await fetch(`/.netlify/functions/allTodoById`, {
         method: 'PUT',
         body: JSON.stringify({
           netlify_id: netlifyId
         })
       })
-        .then(response => response.json())
-        .then(data => setAllTodo(data))
-        .catch(error => console.error(error))
+      const todo = await response.json()
+      setAllTodo(todo)
+
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  useEffect(() => {
+    if (netlifyIdentity.currentUser() !== null) {
+      setNetlifyId(netlifyIdentity.currentUser().id)
+    }
+
+    // const allTodoById = () => {
+    //   fetch(`/.netlify/functions/allTodoById`, {
+    //     method: 'PUT',
+    //     body: JSON.stringify({
+    //       netlify_id: netlifyId
+    //     })
+    //   })
+    //     .then(response => response.json())
+    //     .then(data => setAllTodo(data))
+    //     .catch(error => console.error(error))
+    // }
     allTodoById()
   }, [netlifyId])
+
+  const [createActivity, setCreateActivity] = useState('')
+  const createTodo = async event => {
+    event.preventDefault()
+
+    try {
+      await fetch('/.netlify/functions/createTodo', {
+        method: 'POST',
+        body: JSON.stringify({
+          netlify_id: netlifyId,
+          // netlify_id: "14a3b21b-1df9-4070-b35c-a03dfa183458",
+          activity: createActivity
+          // activity: "test send"
+        })
+      })
+
+      allTodoById()
+      setCreateActivity('')
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const updateTodo = event => {
+    event.preventDefault()
+  }
 
   return (
     <div>
@@ -53,7 +95,18 @@ function App() {
           <p>Login to see your todo</p>
         </div>
 
-        <Form />
+        <form onSubmit={createTodo} className='form' action="">
+          <label className='form__label' htmlFor="">
+            Activity :
+            <input
+              onChange={event => setCreateActivity(event.target.value)}
+              value={createActivity}
+              className='form__text'
+              type="text"
+            />
+          </label>
+          <input className='form__submit' type="submit" value="Todo" />
+        </form>
 
         <ul className='list__container'>
           {allTodo.map((todo) => (
@@ -66,7 +119,10 @@ function App() {
                   <button >Cancel</button>
                 </div>
               </div>
-              <Form />
+
+              <form onSubmit={updateTodo} className='form' action="">
+                <Form />
+              </form>
             </li>
           ))}
         </ul>
