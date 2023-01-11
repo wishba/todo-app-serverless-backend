@@ -60,6 +60,8 @@ function App() {
             <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
             <p>{todo.activity}</p>
 
+            <button>Delete</button>
+
             <form action="">
               <label htmlFor="">
                 Activity :
