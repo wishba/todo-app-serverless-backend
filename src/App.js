@@ -39,10 +39,49 @@ function App() {
       <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
       <button onClick={() => netlifyIdentity.logout()}>Logout</button>
 
+      <form action="">
+        <label htmlFor="">
+          Activity :
+          <input
+            type="text"
+            name=""
+            id=""
+          />
+        </label>
+        <input
+          type="submit"
+          value="Create Todo"
+        />
+      </form>
+
       <ul>
         {allTodo.map(todo => (
           <li key={todo._id}>
+            <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
             <p>{todo.activity}</p>
+
+            <form action="">
+              <label htmlFor="">
+                Activity :
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                />
+              </label>
+              <label htmlFor="">
+                Complete :
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                />
+              </label>
+              <input
+                type="submit"
+                value="Edit"
+              />
+            </form>
           </li>
         ))}
       </ul>
