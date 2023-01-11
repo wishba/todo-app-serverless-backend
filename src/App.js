@@ -29,7 +29,7 @@ function App() {
   }, [netlifyId])
 
   return (
-    <>
+    <div>
       <header className="header">
         <h1 className='header__title'>Todo App</h1>
         <div className='header__button'>
@@ -55,7 +55,7 @@ function App() {
 
         <Form />
 
-        <ul>
+        <ul className='list__container'>
           {allTodo.map((todo) => (
             <li className='list' key={todo._id}>
               <div className='list__flex'>
@@ -71,7 +71,7 @@ function App() {
           ))}
         </ul>
       </section>
-    </>
+    </div>
   );
 }
 

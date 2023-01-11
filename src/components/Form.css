@@ -6,7 +6,7 @@
 
 .form {
   padding: 1rem;
-  margin: 0 1rem;
+  margin: .5rem 1rem;
   border: 2.5px solid var(--color-blue);
   border-radius: 5px;
 }
