@@ -3,6 +3,7 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
   const [netlifyId, setNetlifyId] = useState('')
+  const [allTodo, setAllTodo] = useState([])
 
   const allTodoById = async () => {
     try {
@@ -13,6 +14,7 @@ function App() {
         })
       })
       const data = await response.json()
+      setAllTodo(data)
 
       console.log(data)
 
@@ -41,6 +43,14 @@ function App() {
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Logout</button>
       <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+
+      <ul>
+        {allTodo.map((todo) => (
+          <li key={todo._id}>
+            <p>{todo.completed ? ('Completed') : ('Uncompleted')} - {todo.activity}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
