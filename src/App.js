@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
   netlifyIdentity.init()
+  const [allTodo, setAllTodo] = useState([])
 
   const allTodoById = async () => {
     try {
@@ -13,9 +14,7 @@ function App() {
         })
       })
       const data = await response.json()
-
-      console.log(data)
-
+      setAllTodo(data)
     } catch (error) {
       console.error(error)
     }
@@ -31,6 +30,14 @@ function App() {
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
       <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+
+      <ul>
+        {allTodo.map(todo => (
+          <li key={todo._id}>
+            <p>{todo.activity}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
