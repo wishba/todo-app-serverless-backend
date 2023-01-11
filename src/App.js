@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import netlifyIdentity from 'netlify-identity-widget'
+import FormCreateTodo from './components/FormCreateTodo'
 
 function App() {
   const [netlifyId, setNetlifyId] = useState('')
@@ -43,6 +44,8 @@ function App() {
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Logout</button>
       <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+
+      <FormCreateTodo />
 
       <ul>
         {allTodo.map((todo) => (
