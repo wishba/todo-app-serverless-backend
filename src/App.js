@@ -111,7 +111,7 @@ function App() {
       {netlifyIdentity.currentUser() === null ? (
         <section className='section section--no-login'>
           <img src={logo} className="section__logo" alt="logo" />
-          <h2>Login / register to see your todo</h2>
+          <h2>Login to see your todo</h2>
         </section>
 
       ) : (
