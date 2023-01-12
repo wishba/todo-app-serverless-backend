@@ -97,7 +97,7 @@ function App() {
     }
   }
 
-  const [editList, setEditList] = useState(false)
+  // const [editList, setEditList] = useState(false)
 
   return (
     <div className="app">
@@ -146,46 +146,49 @@ function App() {
                   <span className='list__dash'>-</span>
                   {todo.activity}
                 </p>
-                {editList ? (
-                  <button onClick={() => setEditList(false)}>cancel</button>
-                ) : (
-                  <button onClick={() => setEditList(true)}>Edit</button>
-                )}
+                <button
+                  onClick={() => {
+                    document.getElementById(`cancel-${todo._id}`).classList.add('list__cancel--visible')
+                  }}
+                >Edit</button>
+                <button
+                  id={`cancel-${todo._id}`}
+                  className='list__cancel'
+                >cancel</button>
+                {console.log(`cancel-${todo._id}`)}
 
-                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
+                <button>Delete</button>
 
-                {editList ? (
-                  <form
-                    action=""
-                    onSubmit={event => handleUpdateTodo({ event, todo })}
-                  >
-                    <label htmlFor="">
-                      <span className='form__activity'>Activity :</span>
-                      <input
-                        className='form__input'
-                        type="text"
-                        name=""
-                        id=""
-                        onChange={event => setUpdateActivity(event.target.value)}
-                      />
-                    </label>
-                    <label htmlFor="">
-                      Complete :
-                      <input
-                        className='list__checkbox'
-                        type="checkbox"
-                        name=""
-                        id=""
-                        onChange={() => setUpdateCompleted(!updateCompleted)}
-                      />
-                    </label>
+                <form
+                  action=""
+                  onSubmit={event => handleUpdateTodo({ event, todo })}
+                >
+                  <label htmlFor="">
+                    <span className='form__activity'>Activity :</span>
                     <input
-                      className='list__save'
-                      type="submit"
-                      value="Save"
+                      className='form__input'
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={event => setUpdateActivity(event.target.value)}
                     />
-                  </form>
-                ) : undefined}
+                  </label>
+                  <label htmlFor="">
+                    Complete :
+                    <input
+                      className='list__checkbox'
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={() => setUpdateCompleted(!updateCompleted)}
+                    />
+                  </label>
+                  <input
+                    className='list__save'
+                    type="submit"
+                    value="Save"
+                  />
+                </form>
               </li>
             ))}
           </ul>
