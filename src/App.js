@@ -139,16 +139,24 @@ function App() {
           <ul>
             {allTodo.map(todo => (
               <li key={todo._id}>
-                <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
-                <p>{todo.activity}</p>
+                <p className='list__p'>
+                  {todo.completed ? ('Complete') : ('Uncompleted')}
+                  <span className='list__dash'>-</span>
+                  {todo.activity}
+                </p>
+                <button>Edit</button>
+                <button>cancel</button>
+
+                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
 
                 <form
                   action=""
                   onSubmit={event => handleUpdateTodo({ event, todo })}
                 >
                   <label htmlFor="">
-                    Activity :
+                    <span className='form__activity'>Activity :</span>
                     <input
+                      className='form__input'
                       type="text"
                       name=""
                       id=""
@@ -158,6 +166,7 @@ function App() {
                   <label htmlFor="">
                     Complete :
                     <input
+                      className='list__checkbox'
                       type="checkbox"
                       name=""
                       id=""
@@ -165,14 +174,11 @@ function App() {
                     />
                   </label>
                   <input
+                    className='list__save'
                     type="submit"
-                    value="Edit"
+                    value="Save"
                   />
                 </form>
-
-                <button>cancel</button>
-
-                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
               </li>
             ))}
           </ul>

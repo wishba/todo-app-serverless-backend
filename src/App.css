@@ -1,5 +1,5 @@
 :root {
-  --color-light: white;
+  --color-white: white;
   --color-dark: #282c34;
   --color-blue: #61dafb;
 }
@@ -25,7 +25,7 @@ button:hover,
 input[type='submit']:hover {
   cursor: pointer;
   background-color: var(--color-blue);
-  color: var(--color-light);
+  color: var(--color-white);
 }
 
 .header {
@@ -33,7 +33,7 @@ input[type='submit']:hover {
   display: flex;
   align-items: center;
   font-size: calc(10px + 2vmin);
-  color: var(--color-light);
+  color: var(--color-white);
 }
 
 .header,
@@ -93,4 +93,17 @@ input[type='submit']:hover {
 .form__activity,
 .form__input {
   margin: .5rem .5rem .5rem 0;
+}
+
+.list__p {
+  margin-bottom: .5rem;
+}
+
+.list__checkbox {
+  transform: translateY(.15rem);
+}
+
+.list__dash,
+.list__save {
+  margin: 0 .25rem;
 }
