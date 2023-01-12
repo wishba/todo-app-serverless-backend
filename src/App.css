@@ -111,6 +111,7 @@ input[type='submit']:hover {
 
 .list__edit {
   display: inline-block;
+  margin-right: .25rem;
 }
 
 .list__edit.list__edit--invisible {
