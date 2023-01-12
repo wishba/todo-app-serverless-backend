@@ -30,6 +30,7 @@ function App() {
       })
       const data = await response.json()
       setAllTodo(data)
+
     } catch (error) {
       console.error(error)
     }
@@ -78,6 +79,22 @@ function App() {
     }
   }
 
+  const handleDeleteTodo = async todo => {
+    try {
+      await fetch('/.netlify/functions/deleteTodo', {
+        method: 'DELETE',
+        body: JSON.stringify({
+          id: todo._id
+        })
+      })
+
+      allTodoById(netlifyIdentity.currentUser().id)
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
@@ -108,8 +125,6 @@ function App() {
             <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
             <p>{todo.activity}</p>
 
-            <button>Delete</button>
-
             <form
               action=""
               onSubmit={event => handleUpdateTodo({ event, todo })}
@@ -139,6 +154,8 @@ function App() {
             </form>
 
             <button>cancel</button>
+
+            <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
           </li>
         ))}
       </ul>
