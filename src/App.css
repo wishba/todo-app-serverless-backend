@@ -28,10 +28,6 @@ input[type='submit']:hover {
   color: var(--color-light);
 }
 
-.app {
-  text-align: center;
-}
-
 .header {
   background-color: var(--color-dark);
   display: flex;
@@ -47,6 +43,10 @@ input[type='submit']:hover {
 
 .section {
   margin: 1rem 0 5rem;
+}
+
+.section--no-login {
+  text-align: center;
 }
 
 .app__logo {
