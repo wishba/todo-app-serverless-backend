@@ -43,13 +43,14 @@ input[type='submit']:hover {
 
 .section {
   margin: 1rem 0 5rem;
+  min-height: 70vh;
 }
 
 .section--no-login {
   text-align: center;
 }
 
-.app__logo {
+.section__logo {
   height: 40vmin;
   pointer-events: none;
 }

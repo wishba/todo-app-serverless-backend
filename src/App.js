@@ -213,7 +213,7 @@ function App() {
 
       <footer className='footer'>
         <p className='footer__p'>
-          <span className='footer__by'>made by</span>
+          <span className='footer__by'>Todo app made by</span>
           <a
             className="footer__link"
             href="https://linktr.ee/wishba"
