@@ -98,13 +98,24 @@ function App() {
   }
 
   return (
-    <>
+    <div className="App">
       <header>
         <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
         <button onClick={() => netlifyIdentity.logout()}>Logout</button>
       </header>
 
       <section>
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>test</p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+
         <form
           action=""
           onSubmit={handleCreateTodo}
@@ -165,7 +176,7 @@ function App() {
           ))}
         </ul>
       </section>
-    </>
+    </div>
   )
 }
 
