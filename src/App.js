@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import logo from './logo.svg';
+import './App.css';
 import netlifyIdentity from 'netlify-identity-widget'
+import { useEffect, useState } from 'react';
 
 function App() {
   netlifyIdentity.init()
@@ -96,70 +98,74 @@ function App() {
   }
 
   return (
-    <div>
-      <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
-      <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+    <>
+      <header>
+        <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
+        <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+      </header>
 
-      <form
-        action=""
-        onSubmit={handleCreateTodo}
-      >
-        <label htmlFor="">
-          Activity :
+      <section>
+        <form
+          action=""
+          onSubmit={handleCreateTodo}
+        >
+          <label htmlFor="">
+            Activity :
+            <input
+              type="text"
+              name=""
+              id=""
+              onChange={event => setCreateActivity(event.target.value)}
+            />
+          </label>
           <input
-            type="text"
-            name=""
-            id=""
-            onChange={event => setCreateActivity(event.target.value)}
+            type="submit"
+            value="Create Todo"
           />
-        </label>
-        <input
-          type="submit"
-          value="Create Todo"
-        />
-      </form>
+        </form>
 
-      <ul>
-        {allTodo.map(todo => (
-          <li key={todo._id}>
-            <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
-            <p>{todo.activity}</p>
+        <ul>
+          {allTodo.map(todo => (
+            <li key={todo._id}>
+              <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
+              <p>{todo.activity}</p>
 
-            <form
-              action=""
-              onSubmit={event => handleUpdateTodo({ event, todo })}
-            >
-              <label htmlFor="">
-                Activity :
+              <form
+                action=""
+                onSubmit={event => handleUpdateTodo({ event, todo })}
+              >
+                <label htmlFor="">
+                  Activity :
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    onChange={event => setUpdateActivity(event.target.value)}
+                  />
+                </label>
+                <label htmlFor="">
+                  Complete :
+                  <input
+                    type="checkbox"
+                    name=""
+                    id=""
+                    onChange={() => setUpdateCompleted(!updateCompleted)}
+                  />
+                </label>
                 <input
-                  type="text"
-                  name=""
-                  id=""
-                  onChange={event => setUpdateActivity(event.target.value)}
+                  type="submit"
+                  value="Edit"
                 />
-              </label>
-              <label htmlFor="">
-                Complete :
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  onChange={() => setUpdateCompleted(!updateCompleted)}
-                />
-              </label>
-              <input
-                type="submit"
-                value="Edit"
-              />
-            </form>
+              </form>
 
-            <button>cancel</button>
+              <button>cancel</button>
 
-            <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   )
 }
 
