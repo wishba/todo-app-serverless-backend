@@ -100,82 +100,93 @@ function App() {
   return (
     <div className="App">
       <header>
-        <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
-        <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+        {netlifyIdentity.currentUser() === null ? (
+          <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
+        ) : (
+          <button onClick={() => netlifyIdentity.logout()}>Logout</button>
+        )}
       </header>
 
-      <section>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>test</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      {netlifyIdentity.currentUser() === null ? (
+        <section>
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Login / register to see your todo</p>
+          <p>
+            made by
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              wishba
+            </a>
+          </p>
+        </section>
 
-        <form
-          action=""
-          onSubmit={handleCreateTodo}
-        >
-          <label htmlFor="">
-            Activity :
+      ) : (
+        <section>
+          <form
+            action=""
+            onSubmit={handleCreateTodo}
+          >
+            <label htmlFor="">
+              Activity :
+              <input
+                type="text"
+                name=""
+                id=""
+                onChange={event => setCreateActivity(event.target.value)}
+              />
+            </label>
             <input
-              type="text"
-              name=""
-              id=""
-              onChange={event => setCreateActivity(event.target.value)}
+              type="submit"
+              value="Create Todo"
             />
-          </label>
-          <input
-            type="submit"
-            value="Create Todo"
-          />
-        </form>
+          </form>
 
-        <ul>
-          {allTodo.map(todo => (
-            <li key={todo._id}>
-              <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
-              <p>{todo.activity}</p>
+          <ul>
+            {allTodo.map(todo => (
+              <li key={todo._id}>
+                <p>{todo.completed ? ('Complete') : ('Uncompleted')}</p>
+                <p>{todo.activity}</p>
 
-              <form
-                action=""
-                onSubmit={event => handleUpdateTodo({ event, todo })}
-              >
-                <label htmlFor="">
-                  Activity :
+                <form
+                  action=""
+                  onSubmit={event => handleUpdateTodo({ event, todo })}
+                >
+                  <label htmlFor="">
+                    Activity :
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      onChange={event => setUpdateActivity(event.target.value)}
+                    />
+                  </label>
+                  <label htmlFor="">
+                    Complete :
+                    <input
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={() => setUpdateCompleted(!updateCompleted)}
+                    />
+                  </label>
                   <input
-                    type="text"
-                    name=""
-                    id=""
-                    onChange={event => setUpdateActivity(event.target.value)}
+                    type="submit"
+                    value="Edit"
                   />
-                </label>
-                <label htmlFor="">
-                  Complete :
-                  <input
-                    type="checkbox"
-                    name=""
-                    id=""
-                    onChange={() => setUpdateCompleted(!updateCompleted)}
-                  />
-                </label>
-                <input
-                  type="submit"
-                  value="Edit"
-                />
-              </form>
+                </form>
 
-              <button>cancel</button>
+                <button>cancel</button>
 
-              <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   )
 }
