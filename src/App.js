@@ -154,18 +154,7 @@ function App() {
                     document.getElementById(`form-${todo._id}`).classList.add('list__form--visible')
                     document.getElementById(`delete-${todo._id}`).classList.add('list__delete--invisible')
                   }}
-                >Edit</button>
-
-                <button
-                  id={`cancel-${todo._id}`}
-                  className='list__cancel'
-                  onClick={() => {
-                    document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
-                    document.getElementById(`cancel-${todo._id}`).classList.remove('list__cancel--visible')
-                    document.getElementById(`form-${todo._id}`).classList.remove('list__form--visible')
-                    document.getElementById(`delete-${todo._id}`).classList.remove('list__delete--invisible')
-                  }}
-                >Cancel</button>
+                >Update</button>
 
                 <button
                   id={`delete-${todo._id}`}
@@ -205,6 +194,17 @@ function App() {
                     value="Save"
                   />
                 </form>
+
+                <button
+                  id={`cancel-${todo._id}`}
+                  className='list__cancel'
+                  onClick={() => {
+                    document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
+                    document.getElementById(`cancel-${todo._id}`).classList.remove('list__cancel--visible')
+                    document.getElementById(`form-${todo._id}`).classList.remove('list__form--visible')
+                    document.getElementById(`delete-${todo._id}`).classList.remove('list__delete--invisible')
+                  }}
+                >Cancel</button>
               </li>
             ))}
           </ul>
