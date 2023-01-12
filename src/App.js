@@ -99,7 +99,8 @@ function App() {
 
   return (
     <div className="app">
-      <header className='app__header'>
+      <header className='header'>
+        <h1>Todo</h1>
         {netlifyIdentity.currentUser() === null ? (
           <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
         ) : (
@@ -108,24 +109,13 @@ function App() {
       </header>
 
       {netlifyIdentity.currentUser() === null ? (
-        <section>
-          <img src={logo} className="app__logo" alt="logo" />
-          <p>Login / register to see your todo</p>
-          <p>
-            made by
-            <a
-              className="app__link"
-              href="https://linktr.ee/wishba"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Wisnu Bayu
-            </a>
-          </p>
+        <section className='section'>
+          <img src={logo} className="section__logo" alt="logo" />
+          <h2>Login / register to see your todo</h2>
         </section>
 
       ) : (
-        <section>
+        <section className='section'>
           <form
             action=""
             onSubmit={handleCreateTodo}
@@ -187,6 +177,20 @@ function App() {
           </ul>
         </section>
       )}
+
+      <footer className='footer'>
+        <p className='footer__p'>
+          <span className='footer__by'>made by</span>
+          <a
+            className="footer__link"
+            href="https://linktr.ee/wishba"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wisnu Bayu
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }
