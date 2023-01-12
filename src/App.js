@@ -98,8 +98,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header>
+    <div className="app">
+      <header className='app__header'>
         {netlifyIdentity.currentUser() === null ? (
           <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
         ) : (
@@ -109,12 +109,12 @@ function App() {
 
       {netlifyIdentity.currentUser() === null ? (
         <section>
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="app__logo" alt="logo" />
           <p>Login / register to see your todo</p>
           <p>
             made by
             <a
-              className="App-link"
+              className="app__link"
               href="https://linktr.ee/wishba"
               target="_blank"
               rel="noopener noreferrer"
