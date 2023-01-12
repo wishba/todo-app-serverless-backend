@@ -121,8 +121,9 @@ function App() {
             onSubmit={handleCreateTodo}
           >
             <label htmlFor="">
-              Activity :
+              <span className='form__activity'> Activity :</span>
               <input
+                className='form__input'
                 type="text"
                 name=""
                 id=""
