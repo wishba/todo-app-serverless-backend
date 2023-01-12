@@ -123,3 +123,19 @@ input[type='submit']:hover {
 .list__cancel.list__cancel--visible {
   display: inline-block;
 }
+
+.list__form {
+  display: none;
+}
+
+.list__form.list__form--visible {
+  display: inline-block;
+}
+
+.list__delete {
+  display: inline-block;
+}
+
+.list__delete.list__delete--invisible {
+  display: none;
+}

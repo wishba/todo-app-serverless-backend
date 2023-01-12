@@ -97,8 +97,6 @@ function App() {
     }
   }
 
-  // const [editList, setEditList] = useState(false)
-
   return (
     <div className="app">
       <header className='header'>
@@ -153,6 +151,8 @@ function App() {
                   onClick={() => {
                     document.getElementById(`cancel-${todo._id}`).classList.add('list__cancel--visible')
                     document.getElementById(`edit-${todo._id}`).classList.add('list__edit--invisible')
+                    document.getElementById(`form-${todo._id}`).classList.add('list__form--visible')
+                    document.getElementById(`delete-${todo._id}`).classList.add('list__delete--invisible')
                   }}
                 >Edit</button>
 
@@ -162,12 +162,20 @@ function App() {
                   onClick={() => {
                     document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
                     document.getElementById(`cancel-${todo._id}`).classList.remove('list__cancel--visible')
+                    document.getElementById(`form-${todo._id}`).classList.remove('list__form--visible')
+                    document.getElementById(`delete-${todo._id}`).classList.remove('list__delete--invisible')
                   }}
-                >cancel</button>
+                >Cancel</button>
 
-                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
+                <button
+                  id={`delete-${todo._id}`}
+                  className='list__delete'
+                  onClick={() => handleDeleteTodo(todo)}
+                >Delete</button>
 
                 <form
+                  id={`form-${todo._id}`}
+                  className='list__form'
                   action=""
                   onSubmit={event => handleUpdateTodo({ event, todo })}
                 >
