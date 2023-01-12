@@ -3,6 +3,13 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
   netlifyIdentity.init()
+
+  useEffect(() => {
+    if (netlifyIdentity.currentUser() !== null) {
+      allTodoById(netlifyIdentity.currentUser().id)
+    }
+  }, [])
+
   const [allTodo, setAllTodo] = useState([])
 
   netlifyIdentity.on('login', user => {
@@ -28,24 +35,42 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    if (netlifyIdentity.currentUser() !== null) {
+  const [createActivity, setCreateActivity] = useState('')
+  const handleCreateTodo = async event => {
+    event.preventDefault()
+
+    try {
+      await fetch('/.netlify/functions/createTodo', {
+        method: 'POST',
+        body: JSON.stringify({
+          netlify_id: netlifyIdentity.currentUser().id,
+          activity: createActivity
+        })
+      })
+
       allTodoById(netlifyIdentity.currentUser().id)
+
+    } catch (error) {
+      console.error(error)
     }
-  }, [])
+  }
 
   return (
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
       <button onClick={() => netlifyIdentity.logout()}>Logout</button>
 
-      <form action="">
+      <form
+        action=""
+        onSubmit={handleCreateTodo}
+      >
         <label htmlFor="">
           Activity :
           <input
             type="text"
             name=""
             id=""
+            onChange={event => setCreateActivity(event.target.value)}
           />
         </label>
         <input
