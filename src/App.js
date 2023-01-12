@@ -115,11 +115,11 @@ function App() {
             made by
             <a
               className="App-link"
-              href="https://reactjs.org"
+              href="https://linktr.ee/wishba"
               target="_blank"
               rel="noopener noreferrer"
             >
-              wishba
+              Wisnu Bayu
             </a>
           </p>
         </section>
