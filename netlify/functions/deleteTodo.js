@@ -17,7 +17,6 @@ exports.handler = async event => {
       DELETE_TODO,
       variables
     )
-
     return {
       statusCode: 200,
       body: JSON.stringify(deleteTodo)

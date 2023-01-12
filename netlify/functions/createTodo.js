@@ -20,7 +20,6 @@ exports.handler = async event => {
       CREATE_TODO,
       variables
     )
-
     return {
       statusCode: 200,
       body: JSON.stringify(createTodo),
