@@ -146,18 +146,26 @@ function App() {
                   <span className='list__dash'>-</span>
                   {todo.activity}
                 </p>
+
                 <button
+                  id={`edit-${todo._id}`}
+                  className='list__edit'
                   onClick={() => {
                     document.getElementById(`cancel-${todo._id}`).classList.add('list__cancel--visible')
+                    document.getElementById(`edit-${todo._id}`).classList.add('list__edit--invisible')
                   }}
                 >Edit</button>
+
                 <button
                   id={`cancel-${todo._id}`}
                   className='list__cancel'
+                  onClick={() => {
+                    document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
+                    document.getElementById(`cancel-${todo._id}`).classList.remove('list__cancel--visible')
+                  }}
                 >cancel</button>
-                {console.log(`cancel-${todo._id}`)}
 
-                <button>Delete</button>
+                <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
 
                 <form
                   action=""

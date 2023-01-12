@@ -108,12 +108,18 @@ input[type='submit']:hover {
   margin: 0 .25rem;
 }
 
-.list__edit {}
+.list__edit {
+  display: inline-block;
+}
+
+.list__edit.list__edit--invisible {
+  display: none;
+}
 
 .list__cancel {
   display: none;
 }
 
-.list__cancel--visible {
+.list__cancel.list__cancel--visible {
   display: inline-block;
 }
