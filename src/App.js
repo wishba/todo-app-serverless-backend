@@ -56,13 +56,27 @@ function App() {
   }
 
   const [updateActivity, setUpdateActivity] = useState('')
-  const handleUpdateTodo = async event => {
+  const [updateCompleted, setUpdateCompleted] = useState(false)
+  const handleUpdateTodo = async ({ event, todo }) => {
     event.preventDefault()
 
-    console.log(updateActivity);
-  }
+    try {
+      await fetch('/.netlify/functions/updateTodo', {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: todo._id,
+          netlify_id: todo.netlify_id,
+          activity: updateActivity,
+          completed: updateCompleted
+        })
+      })
 
-  console.log(updateActivity);
+      allTodoById(netlifyIdentity.currentUser().id)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div>
@@ -98,7 +112,7 @@ function App() {
 
             <form
               action=""
-              onSubmit={handleUpdateTodo}
+              onSubmit={event => handleUpdateTodo({ event, todo })}
             >
               <label htmlFor="">
                 Activity :
@@ -115,6 +129,7 @@ function App() {
                   type="checkbox"
                   name=""
                   id=""
+                  onChange={() => setUpdateCompleted(!updateCompleted)}
                 />
               </label>
               <input
