@@ -55,6 +55,15 @@ function App() {
     }
   }
 
+  const [updateActivity, setUpdateActivity] = useState('')
+  const handleUpdateTodo = async event => {
+    event.preventDefault()
+
+    console.log(updateActivity);
+  }
+
+  console.log(updateActivity);
+
   return (
     <div>
       <button onClick={() => netlifyIdentity.open()}>Login / Register</button>
@@ -87,13 +96,17 @@ function App() {
 
             <button>Delete</button>
 
-            <form action="">
+            <form
+              action=""
+              onSubmit={handleUpdateTodo}
+            >
               <label htmlFor="">
                 Activity :
                 <input
                   type="text"
                   name=""
                   id=""
+                  onChange={event => setUpdateActivity(event.target.value)}
                 />
               </label>
               <label htmlFor="">
