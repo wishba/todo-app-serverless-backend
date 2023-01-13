@@ -153,6 +153,7 @@ function App() {
                     document.getElementById(`edit-${todo._id}`).classList.add('list__edit--invisible')
                     document.getElementById(`form-${todo._id}`).classList.add('list__form--visible')
                     document.getElementById(`delete-${todo._id}`).classList.add('list__delete--invisible')
+                    document.getElementById(`activity-${todo._id}`).value = todo.activity
                   }}
                 >Update</button>
 
@@ -171,10 +172,10 @@ function App() {
                   <label htmlFor="">
                     <span className='form__activity'>Activity :</span>
                     <input
+                      id={`activity-${todo._id}`}
                       className='form__input'
                       type="text"
                       name=""
-                      id=""
                       onChange={event => setUpdateActivity(event.target.value)}
                     />
                   </label>
