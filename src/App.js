@@ -203,6 +203,8 @@ function App() {
                       console.log(document.getElementById(`check-${todo._id}`).checked)
                       setUpdateActivity(document.getElementById(`activity-${todo._id}`).value)
                       setUpdateCompleted(document.getElementById(`check-${todo._id}`).checked)
+                      document.getElementById(`cancel-${todo._id}`).classList.remove('list__cancel--visible')
+                      document.getElementById(`delete-${todo._id}`).classList.remove('list__delete--invisible')
                     }}
                   />
                 </form>
