@@ -154,6 +154,7 @@ function App() {
                     document.getElementById(`form-${todo._id}`).classList.add('list__form--visible')
                     document.getElementById(`delete-${todo._id}`).classList.add('list__delete--invisible')
                     document.getElementById(`activity-${todo._id}`).value = todo.activity
+                    document.getElementById(`check-${todo._id}`).checked = todo.completed
                   }}
                 >Update</button>
 
@@ -182,10 +183,10 @@ function App() {
                   <label htmlFor="">
                     Complete :
                     <input
+                      id={`check-${todo._id}`}
                       className='list__checkbox'
                       type="checkbox"
                       name=""
-                      id=""
                       onChange={() => setUpdateCompleted(!updateCompleted)}
                     />
                   </label>
