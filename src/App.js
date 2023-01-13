@@ -177,7 +177,6 @@ function App() {
                       className='form__input'
                       type="text"
                       name=""
-                      onChange={event => setUpdateActivity(event.target.value)}
                     />
                   </label>
                   <label htmlFor="">
@@ -187,7 +186,6 @@ function App() {
                       className='list__checkbox'
                       type="checkbox"
                       name=""
-                      onChange={() => setUpdateCompleted(!updateCompleted)}
                     />
                   </label>
                   <input
@@ -197,6 +195,9 @@ function App() {
                     onClick={() => {
                       document.getElementById(`form-${todo._id}`).classList.remove('list__form--visible')
                       document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
+                      console.log(document.getElementById(`check-${todo._id}`).checked)
+                      setUpdateActivity(document.getElementById(`activity-${todo._id}`).value)
+                      setUpdateCompleted(document.getElementById(`check-${todo._id}`).checked)
                     }}
                   />
                 </form>
