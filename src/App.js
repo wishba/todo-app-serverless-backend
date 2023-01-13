@@ -194,6 +194,10 @@ function App() {
                     className='list__save'
                     type="submit"
                     value="Save"
+                    onClick={() => {
+                      document.getElementById(`form-${todo._id}`).classList.remove('list__form--visible')
+                      document.getElementById(`edit-${todo._id}`).classList.remove('list__edit--invisible')
+                    }}
                   />
                 </form>
 
