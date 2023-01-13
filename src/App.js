@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import netlifyIdentity from 'netlify-identity-widget'
 import { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 
 function App() {
   netlifyIdentity.init()
@@ -42,12 +43,14 @@ function App() {
   const handleCreateTodo = async event => {
     event.preventDefault()
 
+    const sanitizedCreateActivity = DOMPurify.sanitize(createActivity)
+
     try {
       await fetch('/.netlify/functions/createTodo', {
         method: 'POST',
         body: JSON.stringify({
           netlify_id: netlifyIdentity.currentUser().id,
-          activity: createActivity
+          activity: sanitizedCreateActivity
         })
       })
 
@@ -63,13 +66,15 @@ function App() {
   const handleUpdateTodo = async ({ event, todo }) => {
     event.preventDefault()
 
+    const sanitizedUpdateActivity = DOMPurify.sanitize(updateActivity)
+
     try {
       await fetch('/.netlify/functions/updateTodo', {
         method: 'PUT',
         body: JSON.stringify({
           id: todo._id,
           netlify_id: todo.netlify_id,
-          activity: updateActivity,
+          activity: sanitizedUpdateActivity,
           completed: updateCompleted
         })
       })
