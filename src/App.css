@@ -1,143 +1,41 @@
-:root {
-  --color-white: white;
-  --color-dark: #282c34;
-  --color-blue: #61dafb;
-}
-
-h1 {
-  margin-right: auto;
-}
-
-h2 {
-  color: var(--color-dark);
-}
-
-button,
-input[type='submit'] {
-  font-size: inherit;
-  font-family: inherit;
-  border-radius: 5px;
-  padding: .25rem .5rem;
-  border: 1px solid var(--color-dark);
-}
-
-button:hover,
-input[type='submit']:hover {
-  cursor: pointer;
-  background-color: var(--color-blue);
-  color: var(--color-white);
-}
-
-.header {
-  background-color: var(--color-dark);
-  display: flex;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--color-white);
-}
-
-.header,
-.section {
-  padding: 0 1rem;
-}
-
-.section {
-  margin: 1rem 0 5rem;
-  min-height: 70vh;
-}
-
-.section--no-login {
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 
-.section__logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .section__logo {
-    animation: section__logo--spin infinite 20s linear;
-  }
-}
-
-@keyframes section__logo--spin {
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
 
-.footer {
-  position: relative;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-.footer__p {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+.card {
+  padding: 2em;
 }
 
-.footer__by {
-  margin-right: .25rem;
-}
-
-.footer-link {
-  color: var(--color-blue);
-}
-
-.form__activity,
-.form__input {
-  margin: .5rem .5rem .5rem 0;
-}
-
-.list__p {
-  margin-bottom: .5rem;
-}
-
-.list__checkbox {
-  transform: translateY(.15rem);
-}
-
-.list__dash,
-.list__save {
-  margin: 0 .25rem;
-}
-
-.list__edit {
-  display: inline-block;
-  margin-right: .25rem;
-}
-
-.list__edit.list__edit--invisible {
-  display: none;
-}
-
-.list__cancel {
-  display: none;
-}
-
-.list__cancel.list__cancel--visible {
-  display: inline-block;
-}
-
-.list__form {
-  display: none;
-}
-
-.list__form.list__form--visible {
-  display: inline-block;
-}
-
-.list__delete {
-  display: inline-block;
-}
-
-.list__delete.list__delete--invisible {
-  display: none;
+.read-the-docs {
+  color: #888;
 }
