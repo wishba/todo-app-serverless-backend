@@ -1,8 +1,26 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 import netlifyIdentity from 'netlify-identity-widget';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    if (netlifyIdentity.currentUser() != null) {
+      setUserName(` ${netlifyIdentity.currentUser().user_metadata.full_name}`)
+    }
+
+    netlifyIdentity.on('login', user => {
+      setUserName(` ${user.user_metadata.full_name}`)
+      netlifyIdentity.close()
+    })
+    netlifyIdentity.on('logout', () => {
+      setUserName('')
+      netlifyIdentity.close()
+    })
+  }, [])
+
   return (
     <div className="App">
       <div>
@@ -15,14 +33,10 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => {
-          netlifyIdentity.open()
-        }}>
-          Login / Signup
+        <button onClick={() => netlifyIdentity.open()}>
+          {userName ? 'Logout' : 'Login / Signup'}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <p>Hello{userName}!</p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
