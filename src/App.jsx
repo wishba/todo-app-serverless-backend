@@ -9,12 +9,14 @@ function App() {
   useEffect(() => {
     if (netlifyIdentity.currentUser() != null) {
       setUserName(` ${netlifyIdentity.currentUser().user_metadata.full_name}`)
+      console.log(netlifyIdentity.currentUser().id);
     }
 
     netlifyIdentity.on('login', user => {
       setUserName(` ${user.user_metadata.full_name}`)
       netlifyIdentity.close()
     })
+
     netlifyIdentity.on('logout', () => {
       setUserName('')
       netlifyIdentity.close()
