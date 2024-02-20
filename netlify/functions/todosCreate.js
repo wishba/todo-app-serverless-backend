@@ -4,14 +4,16 @@ let q = faunadb.query;
 let adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
 
 export async function handler(event) {
+  const { userId, todo } = JSON.parse(event.body)
+
   try {
     const results = await adminClient.query(
       q.Create(
         q.Collection('todo'),
         {
           data: {
-            "userId": "1",
-            "todo": "do some typing",
+            userId,
+            todo,
             "finished": false
           }
         },

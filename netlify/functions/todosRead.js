@@ -4,11 +4,13 @@ let q = faunadb.query;
 let adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
 
 export async function handler(event) {
+  const { userId } = JSON.parse(event.body)
+
   try {
     const results = await adminClient.query(
       q.Map(
         q.Paginate(
-          q.Match(q.Index('todo-by-userId'), '1')
+          q.Match(q.Index('todo-by-userId'), userId)
         ),
         (todoRef) => q.Get(todoRef)
       )
