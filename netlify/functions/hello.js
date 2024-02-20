@@ -6,7 +6,7 @@
 // of your site. Netlify Functions will handle the rest for you.
 
 
-exports.handler = async event => {
+export async function handler(event) {
     const subject = event.queryStringParameters.name || 'World'
     return {
         statusCode: 200,
