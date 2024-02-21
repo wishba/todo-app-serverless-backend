@@ -37,6 +37,7 @@ function App() {
 
     netlifyIdentity.on('logout', () => {
       setUserName('')
+      setAllTodo(null)
       netlifyIdentity.close()
     })
   }, [])
