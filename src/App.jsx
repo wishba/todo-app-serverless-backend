@@ -21,7 +21,6 @@ function App() {
       })
 
       const data = await response.json()
-      console.log(data);
       setAllTodo(data.data)
 
     } catch (error) {
@@ -58,7 +57,7 @@ function App() {
     e.preventDefault()
 
     try {
-      const response = await fetch('.netlify/functions/todosCreate', {
+      await fetch('.netlify/functions/todosCreate', {
         method: 'POST',
         body: JSON.stringify({
           userId,
@@ -113,7 +112,7 @@ function App() {
                     <button onClick={() => handleUpdate(todo)}>Update</button>
                     <button onClick={() => handleDelete(todo)}>Delete</button>
                   </li>
-                ))
+                )).slice().reverse()
               }
             </ul>
           )
