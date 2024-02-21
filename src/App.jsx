@@ -5,8 +5,11 @@ import { useEffect, useState } from 'react';
 function App() {
   const [userName, setUserName] = useState()
   const [allTodo, setAllTodo] = useState()
+  const [isLoadingTodo, setIsLoadingTodo] = useState(false)
 
   const fetchTodo = async (userId) => {
+    setIsLoadingTodo(true)
+
     try {
       const response = await fetch('/.netlify/functions/todosRead', {
         method: 'POST',
@@ -20,6 +23,9 @@ function App() {
 
     } catch (error) {
       console.error(error);
+
+    } finally {
+      setIsLoadingTodo(false)
     }
   }
 
@@ -50,17 +56,25 @@ function App() {
 
       <h1>Hello{userName ? ` ${userName}!` : '!'}</h1>
 
-      <ul>
-        {
-          allTodo?.map(todo => (
-            <li key={todo.ref['@ref'].id}>
-              <p>id: {todo.ref['@ref'].id}</p>
-              <p>todo: {todo.data.todo}</p>
-              <p>finished: {JSON.stringify(todo.data.finished)}</p>
-            </li>
-          ))
-        }
-      </ul>
+      {
+        isLoadingTodo ?
+          (
+            <p>Loading...</p>
+          ) :
+          (
+            <ul>
+              {
+                allTodo?.map(todo => (
+                  <li key={todo.ref['@ref'].id}>
+                    <p>id: {todo.ref['@ref'].id}</p>
+                    <p>todo: {todo.data.todo}</p>
+                    <p>finished: {JSON.stringify(todo.data.finished)}</p>
+                  </li>
+                ))
+              }
+            </ul>
+          )
+      }
     </div>
   )
 }
