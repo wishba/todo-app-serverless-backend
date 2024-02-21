@@ -77,9 +77,20 @@ function App() {
     console.log(todo);
   }
 
-  const handleDelete = todo => {
-    console.log('delete id: ' + todo.ref['@ref'].id);
-    console.log(todo);
+  const handleDelete = async todo => {
+    try {
+      await fetch('.netlify/functions/todosDelete', {
+        method: 'DELETE',
+        body: JSON.stringify({
+          todoId: todo.ref['@ref'].id
+        })
+      })
+
+      fetchTodo()
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
