@@ -9,7 +9,7 @@ function App() {
   const [isLoadingTodo, setIsLoadingTodo] = useState(false)
   const [todoField, setTodoField] = useState()
   const [updateId, setUpdateId] = useState()
-  const [updateTodoField, setUpdateTodoField] = useState()
+  const [updateTodoField, setUpdateTodoField] = useState('')
   const [updateFinishedField, setUpdateFinishedField] = useState(false)
 
   const fetchTodo = async () => {
