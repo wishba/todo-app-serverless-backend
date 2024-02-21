@@ -1,7 +1,10 @@
 import 'dotenv/config'
-let faunadb = require('faunadb')
-let q = faunadb.query;
-let adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
+import faunadb from 'faunadb'
+
+const q = faunadb.query
+const adminClient = new faunadb.Client({
+  secret: process.env.FAUNADB_SECRET
+})
 
 export async function handler(event) {
   const { todoId, todo, finished } = JSON.parse(event.body)
