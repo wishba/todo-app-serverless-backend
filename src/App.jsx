@@ -133,6 +133,7 @@ function App() {
 
   return (
     <div className='container'>
+      <br />
       <nav>
         <h1>To-do list app</h1>
 
@@ -140,7 +141,6 @@ function App() {
           {userName ? 'Logout' : 'Login / Signup'}
         </button>
       </nav>
-
       <br />
 
       {netlifyIdentity.currentUser() ?
