@@ -119,30 +119,40 @@ function App() {
 
   return (
     <div>
+      <h1>To-do list app</h1>
+
       <button onClick={() => netlifyIdentity.open()}>
         {userName ? 'Logout' : 'Login / Signup'}
       </button>
 
-      <h1>Hello{userName ? ` ${userName}!` : '!'}</h1>
+      <h2>Hello{userName ? ` ${userName}!` : '!'}</h2>
 
-      <form onSubmit={e => handleCreate(e)}>
-        <input type="text"
-          onChange={e => setTodoField(e.target.value)}
-        />
-        <input type="submit" value="create" />
-      </form>
+      {netlifyIdentity.currentUser() ?
+        (
+          <>
+            <form onSubmit={e => handleCreate(e)}>
+              <input type="text"
+                onChange={e => setTodoField(e.target.value)}
+              />
+              <input type="submit" value="create" />
+            </form>
 
-      <form onSubmit={e => handleUpdate(e)}>
-        <input type="text"
-          value={updateTodoField}
-          onChange={e => setUpdateTodoField(e.target.value)}
-        />
-        <input type="checkbox"
-          checked={updateFinishedField}
-          onChange={() => setUpdateFinishedField(!updateFinishedField)}
-        />
-        <input type="submit" value="update" />
-      </form>
+            <form onSubmit={e => handleUpdate(e)}>
+              <input type="text"
+                value={updateTodoField}
+                onChange={e => setUpdateTodoField(e.target.value)}
+              />
+              <input type="checkbox"
+                checked={updateFinishedField}
+                onChange={() => setUpdateFinishedField(!updateFinishedField)}
+              />
+              <input type="submit" value="update" />
+            </form>
+          </>
+        ) : (
+          <h2>login to see your to-do</h2>
+        )
+      }
 
       {isLoadingTodo ?
         (
