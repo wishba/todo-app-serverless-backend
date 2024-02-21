@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "todo-serverless-app",
-    "dateExported": "2024-02-20T06:58:29.641Z",
+    "dateExported": "2024-02-21T07:14:34.656Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -14,12 +14,12 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2024-02-20T06:36:43.017Z",
-            "modified": "2024-02-20T06:51:41.989Z",
+            "modified": "2024-02-21T03:54:03.031Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userId\": \"1\"\n}",
+                "raw": "{\n  \"userId\": \"1118e2e7-54ac-48b9-9c16-01ac950f253b\"\n}",
                 "form": []
             },
             "tests": []
@@ -33,12 +33,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-02-20T06:43:38.875Z",
-            "modified": "2024-02-20T06:44:41.835Z",
+            "modified": "2024-02-21T07:14:30.676Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userId\": \"1\",\n  \"todo\": \"do some testing\"\n}",
+                "raw": "{\n  \"userId\": \"1118e2e7-54ac-48b9-9c16-01ac950f253b\",\n  \"todo\": \"do some testing\"\n}",
                 "form": []
             },
             "tests": []
@@ -52,12 +52,12 @@
             "method": "PUT",
             "sortNum": 40000,
             "created": "2024-02-20T06:54:29.698Z",
-            "modified": "2024-02-20T06:55:56.444Z",
+            "modified": "2024-02-21T07:13:42.923Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"todoId\": \"390230582583362128\",\n  \"todo\": \"do some testing\",\n  \"finished\": true\n}",
+                "raw": "{\n  \"todoId\": \"390315385257198160\",\n  \"todo\": \"do some testing\",\n  \"finished\": true\n}",
                 "form": []
             },
             "tests": []
@@ -71,12 +71,12 @@
             "method": "DELETE",
             "sortNum": 50000,
             "created": "2024-02-20T06:57:22.680Z",
-            "modified": "2024-02-20T06:57:56.873Z",
+            "modified": "2024-02-21T07:14:20.544Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"todoId\": \"390230582583362128\"\n}",
+                "raw": "{\n  \"todoId\": \"390322764339216977\"\n}",
                 "form": []
             },
             "tests": []

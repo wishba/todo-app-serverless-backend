@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv/config'
 let faunadb = require('faunadb')
 let q = faunadb.query;
 let adminClient = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
