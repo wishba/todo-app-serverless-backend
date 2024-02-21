@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [userName, setUserName] = useState()
+  const [allTodo, setAllTodo] = useState()
 
   const fetchTodo = async (userId) => {
     try {
@@ -15,7 +16,7 @@ function App() {
       })
 
       const data = await response.json()
-      console.log(data);
+      setAllTodo(data.data)
 
     } catch (error) {
       console.error(error);
@@ -25,15 +26,13 @@ function App() {
   useEffect(() => {
     if (netlifyIdentity.currentUser() != null) {
       setUserName(netlifyIdentity.currentUser().user_metadata.full_name)
-      console.log(netlifyIdentity.currentUser().id);
       fetchTodo(netlifyIdentity.currentUser().id)
     }
 
     netlifyIdentity.on('login', user => {
       setUserName(user.user_metadata.full_name)
-      netlifyIdentity.close()
-      console.log(netlifyIdentity.currentUser().id);
       fetchTodo(netlifyIdentity.currentUser().id)
+      netlifyIdentity.close()
     })
 
     netlifyIdentity.on('logout', () => {
@@ -49,6 +48,18 @@ function App() {
       </button>
 
       <h1>Hello{userName ? ` ${userName}!` : '!'}</h1>
+
+      <ul>
+        {
+          allTodo?.map(todo => (
+            <li key={todo.ref['@ref'].id}>
+              <p>id: {todo.ref['@ref'].id}</p>
+              <p>todo: {todo.data.todo}</p>
+              <p>finished: {JSON.stringify(todo.data.finished)}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   )
 }
