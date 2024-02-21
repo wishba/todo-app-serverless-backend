@@ -1,16 +1,17 @@
 import './App.css'
 import netlifyIdentity from 'netlify-identity-widget';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function App() {
   const [userId, setUserId] = useState()
   const [userName, setUserName] = useState()
   const [allTodo, setAllTodo] = useState()
   const [isLoadingTodo, setIsLoadingTodo] = useState(false)
-  const [todoField, setTodoField] = useState()
+  const [createTodoField, setCreateTodoField] = useState('')
   const [updateId, setUpdateId] = useState()
   const [updateTodoField, setUpdateTodoField] = useState('')
   const [updateFinishedField, setUpdateFinishedField] = useState(false)
+  const updateRef = useRef()
 
   const fetchTodo = async () => {
     setIsLoadingTodo(true)
@@ -64,7 +65,24 @@ function App() {
         method: 'POST',
         body: JSON.stringify({
           userId,
-          todo: todoField
+          todo: createTodoField
+        })
+      })
+
+      fetchTodo()
+      setCreateTodoField('')
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleDelete = async todo => {
+    try {
+      await fetch('.netlify/functions/todosDelete', {
+        method: 'DELETE',
+        body: JSON.stringify({
+          todoId: todo.ref['@ref'].id
         })
       })
 
@@ -89,6 +107,7 @@ function App() {
       })
 
       fetchTodo()
+      handleUpdateModalClose()
 
     } catch (error) {
       console.error(error);
@@ -99,58 +118,75 @@ function App() {
     setUpdateId(todo.ref['@ref'].id)
     setUpdateTodoField(todo.data.todo)
     setUpdateFinishedField(todo.data.finished)
+
+    handleUpdateModalOpen()
   }
 
-  const handleDelete = async todo => {
-    try {
-      await fetch('.netlify/functions/todosDelete', {
-        method: 'DELETE',
-        body: JSON.stringify({
-          todoId: todo.ref['@ref'].id
-        })
-      })
+  const handleUpdateModalOpen = () => {
+    updateRef.current.showModal()
+  }
 
-      fetchTodo()
-
-    } catch (error) {
-      console.error(error);
-    }
+  const handleUpdateModalClose = () => {
+    console.log('close');
+    updateRef.current.close()
   }
 
   return (
-    <div>
-      <h1>To-do list app</h1>
+    <div className='container'>
+      <nav>
+        <h1>To-do list app</h1>
 
-      <button onClick={() => netlifyIdentity.open()}>
-        {userName ? 'Logout' : 'Login / Signup'}
-      </button>
+        <button onClick={() => netlifyIdentity.open()}>
+          {userName ? 'Logout' : 'Login / Signup'}
+        </button>
+      </nav>
 
-      <h2>Hello{userName ? ` ${userName}!` : '!'}</h2>
+      <br />
 
       {netlifyIdentity.currentUser() ?
         (
           <>
             <form onSubmit={e => handleCreate(e)}>
-              <input type="text"
-                onChange={e => setTodoField(e.target.value)}
-              />
-              <input type="submit" value="create" />
+              <fieldset role='group'>
+                <input type="text"
+                  value={createTodoField}
+                  onChange={e => setCreateTodoField(e.target.value)}
+                />
+                <input type="submit" value="Create" />
+              </fieldset>
             </form>
 
-            <form onSubmit={e => handleUpdate(e)}>
-              <input type="text"
-                value={updateTodoField}
-                onChange={e => setUpdateTodoField(e.target.value)}
-              />
-              <input type="checkbox"
-                checked={updateFinishedField}
-                onChange={() => setUpdateFinishedField(!updateFinishedField)}
-              />
-              <input type="submit" value="update" />
-            </form>
+            <dialog ref={updateRef}>
+              <article>
+                <header>
+                  <button aria-label="Close" rel="prev"
+                    onClick={() => handleUpdateModalClose()}
+                  ></button>
+                </header>
+
+                <form onSubmit={e => handleUpdate(e)}>
+                  <input type="text"
+                    value={updateTodoField}
+                    onChange={e => setUpdateTodoField(e.target.value)}
+                  />
+                  <label>
+                    <span>Finished </span>
+                    <input type="checkbox"
+                      checked={updateFinishedField}
+                      onChange={() => setUpdateFinishedField(!updateFinishedField)}
+                    />
+                  </label>
+                  <input type="submit" value="Update" />
+                </form>
+              </article>
+            </dialog>
           </>
         ) : (
-          <h2>login to see your to-do</h2>
+          <>
+            <br />
+            <br />
+            <h2 style={{ textAlign: 'center' }}>Hello! Please login to see your to-do</h2>
+          </>
         )
       }
 
@@ -159,18 +195,27 @@ function App() {
           <p>Loading...</p>
         ) :
         (
-          <ul>
-            {
-              allTodo?.map(todo => (
-                <li key={todo.ref['@ref'].id}>
-                  <p>Todo: {todo.data.todo}</p>
-                  <p>Finished: {JSON.stringify(todo.data.finished)}</p>
-                  <button onClick={() => handleUpdateInfo(todo)}>Update</button>
-                  <button onClick={() => handleDelete(todo)}>Delete</button>
-                </li>
-              )).slice().reverse()
-            }
-          </ul>
+          <table>
+            <tbody>
+              {allTodo?.map(todo => (
+                <tr key={todo.ref['@ref'].id}>
+                  <td>
+                    <p>Todo: {todo.data.todo}</p>
+                    <p>Finished: {JSON.stringify(todo.data.finished)}</p>
+                  </td>
+
+                  <td style={{
+                    textAlign: 'right',
+                    paddingTop: '0',
+                    paddingBottom: '1rem'
+                  }}>
+                    <button onClick={() => handleUpdateInfo(todo)}>Update</button>
+                    <button onClick={() => handleDelete(todo)}>Delete</button>
+                  </td>
+                </tr>
+              )).slice().reverse()}
+            </tbody>
+          </table>
         )
       }
     </div>
