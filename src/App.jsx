@@ -135,7 +135,11 @@ function App() {
     <div className='container'>
       <br />
       <nav>
-        <h1>To-do list app</h1>
+        <h1 style={{
+          backgroundImage: 'linear-gradient(90deg, #d92662, #2060df)',
+          backgroundClip: 'text',
+          color: 'transparent'
+        }}>To-do list app</h1>
 
         <button onClick={() => netlifyIdentity.open()}>
           {userName ? 'Logout' : 'Login / Signup'}
